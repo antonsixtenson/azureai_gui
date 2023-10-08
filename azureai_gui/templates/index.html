@@ -1,0 +1,54 @@
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Azure AI</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <div class="options-menu" id="sidebar">
+        <img src="{% static 'left-chevron.png' %}" class="options-icon" id="hide-menu" onclick="hideOptionsMenu()">
+        <div class="options-content">
+            <div class="option-info">
+                <h3>Temperature:</h3> <span class="option-value" id="tempValue">50</span>
+            </div>
+            <div class="slidecontainer">
+                <input type="range" min="0" max="100" value="50" class="slider" id="tempSlider">
+            </div>
+            <div class="option-info">
+                <h3>Tokens:</h3> <span class="option-value" id="tokenValue">1600</span>
+            </div>
+            <div class="slidecontainer">
+                <input type="range" min="100" max="32000" value="16000" class="slider" id="tokenSlider">
+            </div>
+            <div class="option-info">
+                <h3>Accuracy:</h3> <span class="option-value" id="accuracyValue">50</span><span>%</span>
+            </div>
+            <div class="slidecontainer">
+                <input type="range" min="1" max="100" value="50" class="slider" id="accuracySlider">
+            </div>
+            <h3>Settings text:</h3>
+            <textarea id="settings-text" placeholder="Enter settings"></textarea>
+            <button type="button" class="update-button" onclick="updateSettings()">Update Settings</button>
+            <br><br>
+            <span id="update-status"></span>
+        </div>
+        
+    </div>
+    <div id="cogwheel-icon"><img src="{% static 'setting.png' %}" class="options-icon" id="cogwheel-img" onclick="toggleOptionsMenu()"></div>
+    <div class="container" id="main-container">
+        <div id="message-container"></div>
+    </div>
+    <div class="bottom-input-container" id="bottomInputContainer">
+        <textarea id="userInput" placeholder="Enter your question and press Enter"></textarea>
+    </div>
+    <script type="text/javascript">
+        var staticImageUrl = "{% static 'copy.png' %}";
+        var botReply = "{{ reply }}";
+    </script>
+    <script src="{% static 'main.js' %}"></script>
+    <script src="{% static 'options.js' %}"></script>
+</body>
+{%endblock%}
+</html>

@@ -1,0 +1,267 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #e2dbbea6;
+}
+
+.container {
+    max-width: 50%;
+    margin: 0 auto;
+    margin-top: -4.2vh;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    position: relative;
+    overflow-y: auto;
+    height: 80vh;
+}
+
+#cogwheel-icon {
+    padding: 0.5vh;
+    width: fit-content;
+}
+#cogwheel-img {
+    cursor: pointer;
+}
+
+.options-menu {
+    width: 20%;
+    height: 100vh;
+    /* This div will take up 20% of the viewport width and full height */
+    background-color: #E2DBBE; /* Adjust the background color as needed */
+    position: fixed;
+    top: 0;
+    left: -20%;
+    transition: left 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.options-content {
+    padding: 1vw;
+    text-align: center;
+}
+
+.show-options {
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    left: 0; /* Show the sidebar */
+}
+
+.hide-options {
+    left: -20%; /* Show the sidebar */
+}
+
+.options-icon {
+    width: 48px;
+}
+
+#hide-menu {
+    height: auto;
+    margin-left: auto;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+
+.slidecontainer {
+    width: 100%; /* Width of the outside container */
+  }
+  
+  /* The slider itself */
+.slider {
+    -webkit-appearance: none;  /* Override default CSS styles */
+    appearance: none;
+    width: 100%; /* Full-width */
+    height: 25px; /* Specified height */
+    background: #b5b5b5; /* Grey background */
+    outline: none; /* Remove outline */
+    opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+    -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+    transition: opacity .2s;
+}
+  
+  /* Mouse-over effects */
+.slider:hover {
+    opacity: 1; /* Fully shown on mouse-over */
+}
+  
+  /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    width: 25px; /* Set a specific slider handle width */
+    height: 25px; /* Slider handle height */
+    background: #188FA7; 
+    cursor: pointer; /* Cursor on hover */
+}
+  
+.slider::-moz-range-thumb {
+    width: 25px; /* Set a specific slider handle width */
+    height: 25px; /* Slider handle height */
+    background: #188FA7; /* Green background */
+    cursor: pointer; /* Cursor on hover */
+}
+
+.option-info {
+    display: flex;
+    align-items: center; /* Vertically align the content */
+    justify-content: center;
+}
+
+.option-value {
+    margin-left: 5px;
+}
+
+#settings-text {
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 1.5vh;
+    border: none;
+    border-radius: 5px;
+    white-space: pre-wrap;
+    resize: none;
+    overflow: hidden;
+}
+
+.update-button {
+    font-size: large;
+    padding: 8px;
+    background-color: #188fa7b6;
+    border-radius: 10px;
+    cursor: pointer;
+    border: none;
+}
+
+.update-button:hover {
+    background-color: #188FA7;
+}
+
+/* Styles for the active (clicked) state */
+.update-button:active {
+    background-color: #469fb1;
+}
+
+#update-status {
+    font-size: large;
+}
+
+.bottom-input-container {
+    max-width: 800px;
+    padding: 20px;
+    margin: 0 auto;
+    margin-bottom: 25px;
+    background-color: #fff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow-y: auto;
+    transition: height 0.3s;
+}
+
+.question-box {
+    background-color: #9dbbaec8;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    overflow-x: scroll;
+}
+
+
+.message-box {
+    background-color: #d5d6aacb;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    overflow-x: scroll;
+}
+
+.code-box {
+    font-family: monospace;
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    white-space: pre-wrap;
+    overflow-x: scroll;
+    position: relative;
+    padding-top: 35px;
+}
+
+.code-header {
+    display: flex;
+    background-color: #000;
+    color: #e0e0e0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 5px; /* Add padding here */
+    box-sizing: border-box; /* Include padding within width */
+    align-items: center;
+}
+
+.code-text {
+    font-family: monospace;
+    flex: 1; /* Allow text to take remaining space */
+    padding-left: 5px;
+    text-align: left;
+}
+
+.copy-button {
+    font-family: monospace;
+    margin-left: auto; /* Push the button to the right */
+    padding-right: 5px;
+    color: #e0e0e0;
+    background-color: rgba(0, 0, 0, 0); /* Set the background color to transparent */
+    border: none; /* Remove the button border */
+    cursor: pointer;
+}
+
+.copy-icon {
+    height: 16px;
+}
+
+.text-after-code {
+    white-space: pre-wrap;
+    padding-left: 5px;
+}
+
+.input-container {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+#userInput {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    white-space: pre-wrap;
+    resize: none;
+    overflow: hidden;
+}
+
+#userInput:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+#userInput:focus {
+    outline: none;
+}
+
+#userInput::placeholder {
+    color: #999;
+}
+
+#userInput:focus::placeholder {
+    color: transparent;
+}
