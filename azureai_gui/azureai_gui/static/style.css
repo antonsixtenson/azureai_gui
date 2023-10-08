@@ -8,14 +8,18 @@ body {
 .container {
     max-width: 50%;
     margin: 0 auto;
-    margin-top: -4.2vh;
+    margin-top: 0.4vh;
     padding: 20px;
     background-color: #fff;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
     border-radius: 10px;
     position: relative;
     overflow-y: auto;
-    height: 80vh;
+    height: 84vh;
+}
+
+.menu-container {
+    position: relative;
 }
 
 #cogwheel-icon {
@@ -26,17 +30,29 @@ body {
     cursor: pointer;
 }
 
+#slider-tab {
+    position: absolute;
+    top: 0;
+    left: 100%; /* Push the div out to the right */
+    height: fit-content;
+    width: fit-content;
+    background-color: #E2DBBE; /* Adjust the background color as needed */
+    cursor: pointer; /* Add cursor style for interaction */
+    /*box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);  Adjust the values as needed */
+    z-index: 0;
+}
+
 .options-menu {
     width: 20%;
     height: 100vh;
-    /* This div will take up 20% of the viewport width and full height */
     background-color: #E2DBBE; /* Adjust the background color as needed */
     position: fixed;
     top: 0;
-    left: -20%;
+    left: -20%; /* Change left to 0 */
     transition: left 0.3s ease;
     display: flex;
     flex-direction: column;
+    z-index: 1; /* Give a higher z-index to the options-menu */
 }
 
 .options-content {
@@ -45,7 +61,7 @@ body {
 }
 
 .show-options {
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    /*box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);*/
     left: 0; /* Show the sidebar */
 }
 
@@ -151,7 +167,7 @@ body {
     max-width: 800px;
     padding: 20px;
     margin: 0 auto;
-    margin-bottom: 25px;
+    margin-bottom: 15px;
     background-color: #fff;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
     border-radius: 10px;

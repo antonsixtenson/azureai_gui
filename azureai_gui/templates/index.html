@@ -8,7 +8,9 @@
 </head>
 <body>
     <div class="options-menu" id="sidebar">
-        <img src="{% static 'left-chevron.png' %}" class="options-icon" id="hide-menu" onclick="hideOptionsMenu()">
+        <div id="slider-tab">
+            <div id="cogwheel-icon"><img src="{% static 'setting.png' %}" class="options-icon" id="cogwheel-img" onclick="toggleOptionsMenu()"></div>
+        </div>
         <div class="options-content">
             <div class="option-info">
                 <h3>Temperature:</h3> <span class="option-value" id="tempValue">50</span>
@@ -34,9 +36,7 @@
             <br><br>
             <span id="update-status"></span>
         </div>
-        
     </div>
-    <div id="cogwheel-icon"><img src="{% static 'setting.png' %}" class="options-icon" id="cogwheel-img" onclick="toggleOptionsMenu()"></div>
     <div class="container" id="main-container">
         <div id="message-container"></div>
     </div>

@@ -36,16 +36,19 @@ const textSettings = document.getElementById("settings-text");
 
  /* UPDATE STATUS TEXT */
 const updateStatusText = document.getElementById("update-status");
+var menuVisible = false;
 
 function toggleOptionsMenu() {
-    sidebar.classList.remove('hide-options');
-    sidebar.classList.add('show-options');
-}
-
-function hideOptionsMenu() {
-    sidebar.classList.remove('show-options');
-    sidebar.classList.add('hide-options');
-    updateStatusText.innerHTML = "";
+    if(menuVisible) {
+        sidebar.classList.remove('show-options');
+        sidebar.classList.add('hide-options');
+        updateStatusText.innerHTML = "";
+        menuVisible = false;
+    } else {
+        sidebar.classList.remove('hide-options');
+        sidebar.classList.add('show-options');
+        menuVisible = true;
+    }
 }
 
 function updateSettings() {
