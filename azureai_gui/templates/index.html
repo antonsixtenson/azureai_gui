@@ -1,10 +1,13 @@
 {% block content %}
 {% load static %}
+{% csrf_token %}
 <!DOCTYPE html>
 <html>
 <head>
     <title>Azure AI</title>
     <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css">
+
 </head>
 <body>
     <div class="options-menu" id="sidebar">
@@ -47,6 +50,7 @@
         var staticImageUrl = "{% static 'copy.png' %}";
         var botReply = "{{ reply }}";
     </script>
+    <script src="{% static 'prism.js' %}"></script>
     <script src="{% static 'main.js' %}"></script>
     <script src="{% static 'options.js' %}"></script>
 </body>

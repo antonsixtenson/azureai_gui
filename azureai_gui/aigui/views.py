@@ -16,14 +16,14 @@ def analyze_text(request):
             print("CODE WAS IN USER INPUT")
             reply = """
             some string before
-                [CODE-START]
+            ```python
                 i = 0
                 if i > 4:
                     print(f"i: {i} hello world")
                 else:
                     i += 1
                     continue
-                [CODE-END]
+            ```
             and some after
             more text
             """
@@ -32,7 +32,7 @@ def analyze_text(request):
         else:
             reply = "No predefined string"
 
-        return JsonResponse({"ai_reply": reply})
+    return JsonResponse({"reply": reply})
 
 def update_settings_values(request):
     status = False
