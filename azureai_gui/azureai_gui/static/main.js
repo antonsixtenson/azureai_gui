@@ -1,3 +1,4 @@
+
 const userInput = document.getElementById("userInput");
 const mainContainer = document.getElementById("main-container");
 const messageContainer = document.getElementById("message-container");
@@ -46,7 +47,7 @@ function submitQuestion() {
     .then(response => response.json())
     .then(data => {
         // Update the header message with the response from the server
-        formatAiResponse(data.ai_reply);
+        addReply(data.reply);
     })
     .catch(error => {
         console.error('Error:', error);
@@ -75,26 +76,37 @@ function scrollToBottom() {
     mainContainer.scrollTop = mainContainer.scrollHeight;
 }
 
+function addReply(messageText) {
+    const codeBlockRegex = /([\s\S]*?)```(\w+)\s*([^]+?)```([\s\S]*)/g; // Updated regex
+    let match;
+    var lang;
+    var langClass;
+    var beforeCode;
+    var code;
+    var afterCode;
+    while ((match = codeBlockRegex.exec(messageText)) !== null) {
+        beforeCode = match[1].trim();
+        lang = match[2];
+        langClass = "language-" + lang;
+        code = match[3];
+        afterCode = match[4].trim();
 
-function formatAiResponse(messageText) {
-    const codeStart = "[CODE-START]";
-    const codeEnd = "[CODE-END]";
+    }
 
-    if (messageText.includes(codeStart) && messageText.includes(codeEnd)) {
-        const messageBox = document.createElement("div");
-        messageBox.className = "message-box";
-        const codeSegment = messageText.split(codeStart)[1].split(codeEnd);
-        const codeSection = codeSegment[0].trim()
+    const messageBox = document.createElement("div");
+    messageBox.className = "message-box";
 
-        const codeBox = document.createElement("div");
-        codeBox.className = "code-box";
+    if(beforeCode) {
+        messageBox.textContent = beforeCode;
+    }
 
+    if(code) {
         const codeHeader = document.createElement("div");
         codeHeader.className = "code-header";
 
         const codeText = document.createElement("div");
         codeText.className = "code-text";
-        codeText.textContent = "code";
+        codeText.textContent = lang;
 
         const copyCodeButton = document.createElement("button");
         copyCodeButton.className = "copy-button";
@@ -105,14 +117,13 @@ function formatAiResponse(messageText) {
         customIcon.src = staticImageUrl; // Replace with the path to your custom .png file
         customIcon.alt = " "; // Optional: Provide an alternative text for accessibility
 
-        
-        // Create a <span> element for the "Copy Code" text
+                // Create a <span> element for the "Copy Code" text
         const copyCodeText = document.createElement("span");
         copyCodeText.textContent = "Copy Code";
         
         // Add a click event listener to copy the code
         copyCodeButton.addEventListener("click", () => {
-            copyCode(codeSection);
+            copyCode(code);
         });
 
         // Append the clipboard icon and text to the copyCodeButton
@@ -122,32 +133,39 @@ function formatAiResponse(messageText) {
         codeHeader.appendChild(codeText);
         codeHeader.appendChild(copyCodeButton);
 
+        const codeBox = document.createElement("div");
+        codeBox.className = "code-box";
+        const preWrapper = document.createElement("pre");
+        const codeElement = document.createElement("code");
+        codeElement.className = langClass;
+        codeElement.innerHTML = code;
         codeBox.appendChild(codeHeader);
-
-        const codeTextContent = document.createElement("div");
-        codeTextContent.textContent = codeSection;
-        codeBox.appendChild(codeTextContent);
-
-        const textBeforeCode = messageText.split(codeStart)[0];
-        const textAfterCode = codeSegment[1].trim();
-        messageBox.textContent = textBeforeCode;
+        preWrapper.appendChild(codeElement);
+        codeBox.appendChild(preWrapper);
         messageBox.appendChild(codeBox);
-
-        if (textAfterCode) {
-            const textAfterCodeElement = document.createElement("div");
-            textAfterCodeElement.className = "text-after-code";
-            textAfterCodeElement.textContent = textAfterCode;
-            messageBox.appendChild(textAfterCodeElement);
-        }
-
         messageContainer.appendChild(messageBox);
-    } else {
+
+        
+        
+    }
+    
+    if (afterCode) {
+        const textAfterCodeElement = document.createElement("div");
+        textAfterCodeElement.className = "text-after-code";
+        textAfterCodeElement.textContent = afterCode;
+        messageBox.appendChild(textAfterCodeElement);
+    }
+
+
+    if (! beforeCode && ! code && ! afterCode) {
         const messageBox = document.createElement("div");
         messageBox.className = "message-box";
         messageBox.textContent = messageText;
 
         messageContainer.appendChild(messageBox);
     }
+
+    Prism.highlightAll();
     scrollToBottom();
     userInput.value = "";
     userInput.style.height = "auto";
