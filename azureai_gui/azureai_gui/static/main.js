@@ -76,91 +76,44 @@ function scrollToBottom() {
     mainContainer.scrollTop = mainContainer.scrollHeight;
 }
 
-function addReply(messageText) {
+function generateResponseElem(data, messageBox) {
+
     const codeBlockRegex = /([\s\S]*?)```(\w+)\s*([^]+?)```([\s\S]*)/g; // Updated regex
-    let match;
+    var match;
     var lang;
     var langClass;
     var beforeCode;
     var code;
     var afterCode;
-    while ((match = codeBlockRegex.exec(messageText)) !== null) {
+
+    // Find code in response from LLM
+    while ((match = codeBlockRegex.exec(data)) !== null) {
         beforeCode = match[1].trim();
         lang = match[2];
         langClass = "language-" + lang;
         code = match[3];
         afterCode = match[4].trim();
-
     }
 
-    const messageBox = document.createElement("div");
-    messageBox.className = "message-box";
-
+    // If there are text before the code -- add it to element
     if(beforeCode) {
-        messageBox.textContent = beforeCode;
+        addText(beforeCode, messageBox);
     }
 
+    // If there are code in the response -- format and add it
     if(code) {
-        const codeHeader = document.createElement("div");
-        codeHeader.className = "code-header";
-
-        const codeText = document.createElement("div");
-        codeText.className = "code-text";
-        codeText.textContent = lang;
-
-        const copyCodeButton = document.createElement("button");
-        copyCodeButton.className = "copy-button";
-
-        // Create an <img> element for the custom icon
-        const customIcon = document.createElement("img");
-        customIcon.className = "copy-icon";
-        customIcon.src = staticImageUrl; // Replace with the path to your custom .png file
-        customIcon.alt = " "; // Optional: Provide an alternative text for accessibility
-
-                // Create a <span> element for the "Copy Code" text
-        const copyCodeText = document.createElement("span");
-        copyCodeText.textContent = "Copy Code";
-        
-        // Add a click event listener to copy the code
-        copyCodeButton.addEventListener("click", () => {
-            copyCode(code);
-        });
-
-        // Append the clipboard icon and text to the copyCodeButton
-        copyCodeButton.appendChild(customIcon);
-        copyCodeButton.appendChild(copyCodeText);
-
-        codeHeader.appendChild(codeText);
-        codeHeader.appendChild(copyCodeButton);
-
-        const codeBox = document.createElement("div");
-        codeBox.className = "code-box";
-        const preWrapper = document.createElement("pre");
-        const codeElement = document.createElement("code");
-        codeElement.className = langClass;
-        codeElement.innerHTML = code;
-        codeBox.appendChild(codeHeader);
-        preWrapper.appendChild(codeElement);
-        codeBox.appendChild(preWrapper);
-        messageBox.appendChild(codeBox);
-        messageContainer.appendChild(messageBox);
-
-        
-        
-    }
-    
-    if (afterCode) {
-        const textAfterCodeElement = document.createElement("div");
-        textAfterCodeElement.className = "text-after-code";
-        textAfterCodeElement.textContent = afterCode;
-        messageBox.appendChild(textAfterCodeElement);
+        addFormattedCode(langClass, code, messageBox);
     }
 
+    // If there are text after the code -- parse it again
+    if(afterCode) {
+        generateResponseElem(afterCode, messageBox);
+    }
 
     if (! beforeCode && ! code && ! afterCode) {
         const messageBox = document.createElement("div");
         messageBox.className = "message-box";
-        messageBox.textContent = messageText;
+        messageBox.textContent = data;
 
         messageContainer.appendChild(messageBox);
     }
@@ -170,4 +123,59 @@ function addReply(messageText) {
     userInput.value = "";
     userInput.style.height = "auto";
     bottomInputContainer.style.height = "60px";
+}
+
+function addFormattedCode(lang, code, messageBox) {
+    const codeHeader = document.createElement("div");
+    codeHeader.className = "code-header";
+    const codeText = document.createElement("div");
+    codeText.className = "code-text";
+    codeText.textContent = lang.substring(9);
+    const copyCodeButton = document.createElement("button");
+    copyCodeButton.className = "copy-button";
+    // Create an <img> element for the custom icon
+    const customIcon = document.createElement("img");
+    customIcon.className = "copy-icon";
+    customIcon.src = staticImageUrl; // Replace with the path to your custom .png file
+    customIcon.alt = " "; // Optional: Provide an alternative text for accessibility
+            // Create a <span> element for the "Copy Code" text
+    const copyCodeText = document.createElement("span");
+    copyCodeText.textContent = "Copy Code";
+    
+    // Add a click event listener to copy the code
+    copyCodeButton.addEventListener("click", () => {
+        copyCode(code);
+    });
+    // Append the clipboard icon and text to the copyCodeButton
+    copyCodeButton.appendChild(customIcon);
+    copyCodeButton.appendChild(copyCodeText);
+    codeHeader.appendChild(codeText);
+    codeHeader.appendChild(copyCodeButton);
+    const codeBox = document.createElement("div");
+    codeBox.className = "code-box";
+    const preWrapper = document.createElement("pre");
+    const codeElement = document.createElement("code");
+    codeElement.className = lang;
+    codeElement.innerHTML = code;
+    codeBox.appendChild(codeHeader);
+    preWrapper.appendChild(codeElement);
+    codeBox.appendChild(preWrapper);
+    messageBox.appendChild(codeBox);
+    messageContainer.appendChild(messageBox);
+}
+
+function addText(text, messageBox) {
+    const textAfterCodeElement = document.createElement("div");
+    textAfterCodeElement.className = "text-response";
+    textAfterCodeElement.textContent = text;
+    messageBox.appendChild(textAfterCodeElement);
+}
+
+function addReply(messageText) {
+
+    // Create div for the response
+    const messageBox = document.createElement("div");
+    messageBox.className = "message-box";
+
+    generateResponseElem(messageText, messageBox);
 }
