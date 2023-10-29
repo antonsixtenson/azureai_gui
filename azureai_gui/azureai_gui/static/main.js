@@ -94,7 +94,6 @@ function generateResponseElem(data, messageBox) {
         code = match[3];
         afterCode = match[4].trim();
     }
-
     // If there are text before the code -- add it to element
     if(beforeCode) {
         addText(beforeCode, messageBox);
@@ -114,7 +113,6 @@ function generateResponseElem(data, messageBox) {
         const messageBox = document.createElement("div");
         messageBox.className = "message-box";
         messageBox.textContent = data;
-
         messageContainer.appendChild(messageBox);
     }
 
@@ -165,9 +163,10 @@ function addFormattedCode(lang, code, messageBox) {
 }
 
 function addText(text, messageBox) {
+    var text = text.replace(/[\r\n]+/g, '<br />');
     const textAfterCodeElement = document.createElement("div");
     textAfterCodeElement.className = "text-response";
-    textAfterCodeElement.textContent = text;
+    textAfterCodeElement.innerHTML = marked.parse(text);
     messageBox.appendChild(textAfterCodeElement);
 }
 
@@ -176,6 +175,5 @@ function addReply(messageText) {
     // Create div for the response
     const messageBox = document.createElement("div");
     messageBox.className = "message-box";
-
     generateResponseElem(messageText, messageBox);
 }
