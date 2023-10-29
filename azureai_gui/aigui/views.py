@@ -25,7 +25,28 @@ def analyze_text(request):
                     continue
             ```
             and some after
+            1. this is a list
+            2. of useless things
+            3. just eat it up
+            
+            some single line code
+            `ps aux | grep antonsixtenson`
             more text
+            ```bash
+                if [[ -f $FILE ]]; then
+                    echo "it exists"
+                fi
+            ```
+            morer more more
+            hello world in c:
+            ```c
+                #include <stdio.h>
+
+                int main() {
+                    printf("%s", "hello world");
+                    return 0;
+                }
+            ```
             """
         elif "nice" in user_input:
             reply = "Hello beautiful"
